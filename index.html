@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WebWhisper — Hidden Message Encoder & Decoder. Explore classical cryptography with Caesar, Custom Substitution, and Vigenère ciphers in an interactive, educational environment.">
+  <meta name="keywords" content="cryptography, cipher, caesar cipher, substitution cipher, vigenere cipher, encoder, decoder, web development">
+  <meta name="author" content="WebWhisper Project">
+  <title>WebWhisper — Hidden Message Encoder & Decoder</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  
+  <!-- Google Fonts: Inter & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Decorative Glowing Orbs -->
+  <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow-3" aria-hidden="true"></div>
+
+  <!-- A. Navigation Header -->
+  <header class="site-header" id="header">
+    <div class="container header-container">
+      <a href="#hero" class="brand-logo" aria-label="WebWhisper Home">
+        <div class="logo-icon-wrapper">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <rect x="9" y="11" width="6" height="5" rx="1" fill="currentColor" fill-opacity="0.3"/>
+            <path d="M10 11V9a2 2 0 0 1 4 0v2"/>
+          </svg>
+        </div>
+        <div class="brand-text-group">
+          <span class="brand-title">WebWhisper</span>
+          <span class="brand-badge">CIPHER LAB</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="main-nav" id="main-nav" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#hero" class="nav-link active" data-nav="hero">Home</a></li>
+          <li><a href="#encoder" class="nav-link" data-nav="encoder">Encoder & Decoder</a></li>
+          <li><a href="#learn" class="nav-link" data-nav="learn">Cipher Guide</a></li>
+          <li><a href="#challenge" class="nav-link" data-nav="challenge">Challenges</a></li>
+          <li><a href="#history" class="nav-link" data-nav="history">History</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions: Diagnostics, Theme Toggle & Mobile Menu -->
+      <div class="header-actions">
+        <button id="btn-open-tests" class="btn-ghost btn-sm" title="Run Algorithm Diagnostic Tests" aria-label="Run Algorithm Tests">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          <span class="btn-text-desktop">Test Suite</span>
+        </button>
+
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Light and Dark Theme" title="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+
+        <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="main-nav">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    
+    <!-- B. Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-container">
+        
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>Interactive Cryptography Lab</span>
+          </div>
+
+          <h1 class="hero-title">
+            Your Message.<br>
+            Your Code.<br>
+            <span class="gradient-text">Your Secret.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Transform ordinary text into coded messages. Explore classic ciphers, decode hidden messages, and learn how classical cryptography works right in your browser.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#encoder" class="btn btn-primary btn-lg" id="hero-start-btn">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              <span>Start Encoding</span>
+            </a>
+            <a href="#learn" class="btn btn-secondary btn-lg">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <span>Explore Ciphers</span>
+            </a>
+          </div>
+
+          <!-- Feature Pills / Badges -->
+          <div class="hero-pills" role="list">
+            <div class="pill-item" role="listitem">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span>100% Browser-Based</span>
+            </div>
+            <div class="pill-item" role="listitem">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+              <span>Instant Conversion</span>
+            </div>
+            <div class="pill-item" role="listitem">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+              </svg>
+              <span>No Account Required</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Interactive Visual Card: Live Transformation Preview -->
+        <div class="hero-visual" aria-hidden="true">
+          <div class="cipher-matrix-card">
+            <div class="matrix-card-header">
+              <div class="matrix-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="matrix-title">LIVE CIPHER STREAM</span>
+              <span class="matrix-status">ONLINE</span>
+            </div>
+            
+            <div class="matrix-body">
+              <div class="matrix-row">
+                <span class="matrix-label">PLAIN:</span>
+                <span class="matrix-text" id="hero-plain-text">HELLO WORLD</span>
+              </div>
+              
+              <div class="matrix-divider">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#22D3EE" stroke-width="2">
+                  <path d="M7 10l5 5 5-5"/>
+                </svg>
+                <span class="matrix-cipher-badge" id="hero-cipher-badge">CAESAR (+3)</span>
+              </div>
+
+              <div class="matrix-row matrix-row-cipher">
+                <span class="matrix-label">CIPHER:</span>
+                <span class="matrix-text glow-cyan" id="hero-cipher-text">KHOOR ZRUOG</span>
+              </div>
+
+              <div class="matrix-keys-row">
+                <div class="key-stream" id="hero-key-stream">
+                  <span>H&rarr;K</span>
+                  <span>E&rarr;H</span>
+                  <span>L&rarr;O</span>
+                  <span>L&rarr;O</span>
+                  <span>O&rarr;R</span>
+                  <span>W&rarr;Z</span>
+                  <span>O&rarr;R</span>
+                  <span>R&rarr;U</span>
+                  <span>L&rarr;O</span>
+                  <span>D&rarr;G</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Disclaimer Notice banner -->
+            <div class="hero-disclaimer">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              <span>Educational Tool: Classical ciphers are not secure for confidential data.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- C. Main Encoder & Decoder Workspace -->
+    <section class="workspace-section" id="encoder">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">CORE WORKSPACE</div>
+          <h2 class="section-title">Cipher Studio</h2>
+          <p class="section-desc">Encode plain text into secret characters or decode intercepted ciphertext with mathematical precision.</p>
+        </div>
+
+        <div class="workspace-card">
+          
+          <!-- Top Global Cipher Selector & Quick Presets -->
+          <div class="workspace-config-bar">
+            
+            <div class="config-group cipher-picker">
+              <label for="cipher-select" class="config-label">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+                <span>Select Cipher Algorithm</span>
+              </label>
+              <select id="cipher-select" class="custom-select" aria-label="Select Cipher Algorithm">
+                <option value="caesar" selected>Caesar Cipher (Shift Substitution)</option>
+                <option value="substitution">Custom Substitution Cipher (Monoalphabetic)</option>
+                <option value="vigenere">Vigenère Cipher (Polyalphabetic Keystream)</option>
+              </select>
+            </div>
+
+            <!-- Dynamic Cipher Help / Description Tooltip -->
+            <div class="cipher-info-box" id="cipher-info-box">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" class="info-icon">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <div class="info-content" id="cipher-info-text">
+                <strong>Caesar Cipher:</strong> Shifts every English letter forward in the alphabet by a fixed key (1–25). Punctuation, numbers, and spaces remain unchanged.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Cipher Parameter Panels -->
+          <div class="cipher-parameters-wrapper">
+            
+            <!-- 1. Caesar Cipher Controls -->
+            <div class="param-panel active" id="param-panel-caesar">
+              <div class="param-row">
+                <div class="param-field">
+                  <div class="slider-header">
+                    <label for="caesar-shift-slider" class="param-label">
+                      Alphabet Shift Value (Key):
+                    </label>
+                    <span class="shift-badge" id="caesar-shift-val">3</span>
+                  </div>
+                  
+                  <div class="slider-container">
+                    <input type="range" id="caesar-shift-slider" min="1" max="25" value="3" class="custom-slider" aria-label="Caesar Shift Slider">
+                    <div class="slider-ticks">
+                      <span>1</span>
+                      <span>5</span>
+                      <span>10</span>
+                      <span>13 (ROT13)</span>
+                      <span>18</span>
+                      <span>25</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Shift Quick Preset Buttons -->
+                <div class="preset-buttons-group">
+                  <span class="preset-label">Quick Presets:</span>
+                  <div class="preset-btn-row">
+                    <button type="button" class="btn-preset" data-shift="1">+1 (Simple)</button>
+                    <button type="button" class="btn-preset active" data-shift="3">+3 (Classic Caesar)</button>
+                    <button type="button" class="btn-preset" data-shift="13">+13 (ROT13)</button>
+                    <button type="button" class="btn-preset" data-shift="25">+25 (Reverse 1)</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live Alphabet Shift Mapping Visualizer -->
+              <div class="alphabet-preview-box">
+                <span class="alphabet-label">Shift Mapping Preview:</span>
+                <div class="alphabet-scrollable" id="caesar-mapping-preview">
+                  <!-- Generated dynamically in script.js -->
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Custom Substitution Cipher Controls -->
+            <div class="param-panel" id="param-panel-substitution">
+              <div class="substitution-controls">
+                
+                <div class="substitution-input-row">
+                  <label for="substitution-alphabet-input" class="param-label">
+                    26-Letter Custom Substitution Alphabet:
+                  </label>
+                  
+                  <div class="alphabet-input-container">
+                    <input type="text" id="substitution-alphabet-input" class="mono-input" maxlength="26" value="QWERTYUIOPASDFGHJKLZXCVBNM" placeholder="Enter exactly 26 unique letters (A-Z)..." spellcheck="false" autocomplete="off">
+                    <span class="alphabet-status-badge valid" id="alphabet-validation-badge">26/26 Unique</span>
+                  </div>
+
+                  <div class="sub-preset-actions">
+                    <button type="button" class="btn-preset" id="btn-sub-default" title="Reset to QWERTY standard substitution">QWERTY Key</button>
+                    <button type="button" class="btn-preset" id="btn-sub-atbash" title="Set Atbash reverse alphabet (A=Z, B=Y...)">Atbash (Z-A)</button>
+                    <button type="button" class="btn-preset" id="btn-sub-rot13" title="Set ROT13 substitution mapping">ROT13</button>
+                    <button type="button" class="btn-preset" id="btn-sub-shuffle" title="Generate a random permutation of 26 letters">
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 3 21 3 21 8"/>
+                        <line x1="4" y1="20" x2="21" y2="3"/>
+                        <polyline points="21 16 21 21 16 21"/>
+                        <line x1="15" y1="15" x2="21" y2="21"/>
+                        <line x1="4" y1="4" x2="9" y2="9"/>
+                      </svg>
+                      <span>Random Shuffle</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Alphabet Mapping Key Table -->
+                <div class="substitution-table-container">
+                  <div class="table-legend">Standard Alphabet &rarr; Custom Mapping:</div>
+                  <div class="substitution-mapping-grid" id="substitution-mapping-grid">
+                    <!-- Injected dynamically: A->Q, B->W, etc. -->
+                  </div>
+                </div>
+
+                <div class="validation-error-msg" id="sub-error-msg" role="alert"></div>
+
+              </div>
+            </div>
+
+            <!-- 3. Vigenère Cipher Controls -->
+            <div class="param-panel" id="param-panel-vigenere">
+              <div class="vigenere-controls">
+                
+                <div class="param-field">
+                  <div class="keyword-label-row">
+                    <label for="vigenere-keyword-input" class="param-label">
+                      Secret Keyword (Letters A–Z only):
+                    </label>
+                    <span class="keyword-status-badge valid" id="vigenere-key-status">Valid Key</span>
+                  </div>
+
+                  <div class="keyword-input-wrapper">
+                    <input type="text" id="vigenere-keyword-input" class="mono-input" value="SECRET" placeholder="e.g. CIPHER, LEMON, SECRET..." maxlength="30" spellcheck="false" autocomplete="off">
+                    
+                    <div class="vigenere-presets">
+                      <span class="preset-label">Presets:</span>
+                      <button type="button" class="btn-preset active" data-vkey="SECRET">SECRET</button>
+                      <button type="button" class="btn-preset" data-vkey="LEMON">LEMON</button>
+                      <button type="button" class="btn-preset" data-vkey="WHISPER">WHISPER</button>
+                      <button type="button" class="btn-preset" data-vkey="KEY">KEY</button>
+                    </div>
+                  </div>
+
+                  <div class="validation-error-msg" id="vigenere-error-msg" role="alert"></div>
+                </div>
+
+                <!-- Keystream Live Repeater Preview -->
+                <div class="keystream-preview-box">
+                  <div class="keystream-info">
+                    <span class="keystream-title">Repeating Keystream Demonstration:</span>
+                    <span class="keystream-sub" id="keystream-detail">Each letter shifts by corresponding keyword letter index (A=0, B=1...)</span>
+                  </div>
+                  <div class="keystream-display" id="keystream-display">
+                    <!-- Dynamically renders input aligned with repeated keyword -->
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Two-Column Workspace Layout: Input Panel | Output Panel -->
+          <div class="workspace-grid">
+            
+            <!-- Left: Input Panel -->
+            <div class="workspace-col input-col">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <label for="input-message" class="panel-label">Your Message</label>
+                  <span class="panel-badge">INPUT</span>
+                </div>
+                
+                <!-- Quick input actions -->
+                <div class="panel-actions">
+                  <button type="button" class="btn-tool" id="btn-sample-input" title="Insert a sample message">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
+                      <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                    <span>Sample</span>
+                  </button>
+
+                  <button type="button" class="btn-tool" id="btn-paste-input" title="Paste from clipboard">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                    </svg>
+                    <span>Paste</span>
+                  </button>
+
+                  <button type="button" class="btn-tool" id="btn-clear-input" title="Clear input text">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"/>
+                      <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                    <span>Clear</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Textarea wrapper -->
+              <div class="textarea-wrapper">
+                <textarea id="input-message" class="workspace-textarea" rows="7" placeholder="Type or paste your secret message here... (e.g. Meet me at dawn!)" spellcheck="false"></textarea>
+                <div class="textarea-inline-warning" id="input-validation-msg" role="alert"></div>
+              </div>
+
+              <!-- Live Character Stats Bar -->
+              <div class="stats-bar">
+                <div class="stat-item">
+                  <span class="stat-num" id="input-char-count">0</span>
+                  <span class="stat-name">Characters</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-num" id="input-word-count">0</span>
+                  <span class="stat-name">Words</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-num" id="input-alpha-count">0</span>
+                  <span class="stat-name">Letters (A–Z)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Center Operations Bar -->
+            <div class="workspace-operations">
+              <div class="operation-buttons">
+                <button type="button" class="btn btn-primary btn-action" id="btn-encode">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                  <span>Encode Message</span>
+                </button>
+
+                <button type="button" class="btn btn-secondary btn-action" id="btn-decode">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1"/>
+                  </svg>
+                  <span>Decode Message</span>
+                </button>
+
+                <button type="button" class="btn-icon-action" id="btn-swap" title="Swap output into input for subsequent encoding/decoding" aria-label="Swap input and output">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="7 16 3 12 7 8"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <polyline points="17 8 21 12 17 16"/>
+                  </svg>
+                  <span class="swap-label">Swap</span>
+                </button>
+
+                <button type="button" class="btn-ghost btn-sm" id="btn-clear-all" title="Reset both input and output fields">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                  </svg>
+                  <span>Clear All</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right: Output Panel -->
+            <div class="workspace-col output-col">
+              <div class="panel-header">
+                <div class="panel-title-group">
+                  <label for="output-message" class="panel-label" id="output-label">Result Message</label>
+                  <span class="panel-badge badge-cyan" id="output-operation-badge">READY</span>
+                </div>
+                
+                <!-- Output actions -->
+                <div class="panel-actions">
+                  <button type="button" class="btn-tool" id="btn-copy-output" title="Copy output to clipboard">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                    <span>Copy</span>
+                  </button>
+
+                  <button type="button" class="btn-tool" id="btn-download-output" title="Download output as .txt file">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    <span>Download</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Output Textarea and Empty State -->
+              <div class="textarea-wrapper">
+                <textarea id="output-message" class="workspace-textarea output-area" rows="7" readonly placeholder="Your encoded or decoded message will appear here..." spellcheck="false"></textarea>
+                
+                <!-- Empty State Prompt -->
+                <div class="output-empty-state" id="output-empty-state">
+                  <div class="empty-icon-shield">
+                    <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#8B5CF6" stroke-width="1.5">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                      <path d="M10 11V9a2 2 0 0 1 4 0v2"/>
+                    </svg>
+                  </div>
+                  <p class="empty-text">Awaiting input... Select a cipher, type a message, and click <strong>Encode</strong> or <strong>Decode</strong>.</p>
+                </div>
+              </div>
+
+              <!-- Output Stats Bar -->
+              <div class="stats-bar">
+                <div class="stat-item">
+                  <span class="stat-num" id="output-char-count">0</span>
+                  <span class="stat-name">Characters</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-num" id="output-word-count">0</span>
+                  <span class="stat-name">Words</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-status-text" id="output-status-text">Algorithm: Caesar (Shift 3)</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Step-by-Step Character Transformation Inspector -->
+          <div class="transformation-inspector" id="transformation-inspector">
+            <div class="inspector-header">
+              <span class="inspector-title">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <span>Character Step-by-Step Inspector (First 20 Letters)</span>
+              </span>
+              <span class="inspector-hint">Visualizing individual letter transformation</span>
+            </div>
+            <div class="inspector-track" id="inspector-track">
+              <!-- Dynamically populated when encode or decode occurs -->
+              <div class="inspector-placeholder">Process a message to view character-level cipher mechanics.</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- J. Cipher Learning Center -->
+    <section class="learning-section" id="learn">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">EDUCATIONAL REFERENCE</div>
+          <h2 class="section-title">Classical Cryptography Guide</h2>
+          <p class="section-desc">Understand the mathematical foundation, history, advantages, and vulnerabilities of classical cipher systems.</p>
+        </div>
+
+        <div class="cards-grid">
+          
+          <!-- Card 1: Caesar Cipher -->
+          <article class="cipher-card" id="card-caesar">
+            <div class="card-top">
+              <div class="card-icon-box">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="card-meta">
+                <span class="cipher-era">~100 BC • Ancient Rome</span>
+                <h3 class="cipher-name">Caesar Cipher</h3>
+              </div>
+            </div>
+
+            <p class="cipher-summary">
+              One of the earliest and simplest encryption techniques. It is a substitution cipher where each letter in the plaintext is shifted by a fixed number of positions down the alphabet.
+            </p>
+
+            <div class="cipher-algorithm-box">
+              <div class="algo-label">MATHEMATICAL FORMULA:</div>
+              <div class="algo-formula">
+                <code>E(x) = (x + k) mod 26</code><br>
+                <code>D(x) = (x - k) mod 26</code>
+              </div>
+              <div class="algo-note">Where <em>x</em> is letter index (A=0, Z=25) and <em>k</em> is the shift key (1–25).</div>
+            </div>
+
+            <div class="cipher-example-box">
+              <div class="example-title">Working Example (Shift k = 3):</div>
+              <div class="example-table">
+                <div class="ex-row"><span class="ex-lbl">Plain:</span> <code>H  E  L  L  O</code></div>
+                <div class="ex-row"><span class="ex-lbl">Shift:</span> <code>+3 +3 +3 +3 +3</code></div>
+                <div class="ex-row"><span class="ex-lbl">Cipher:</span> <strong class="glow-cyan">K  H  O  O  R</strong></div>
+              </div>
+            </div>
+
+            <div class="cipher-analysis">
+              <div class="pros-cons">
+                <div class="pro-item">
+                  <span class="pro-icon">&check;</span>
+                  <span><strong>Advantages:</strong> Extremely fast, easy to calculate by hand, intuitive educational model.</span>
+                </div>
+                <div class="con-item">
+                  <span class="con-icon">&cross;</span>
+                  <span><strong>Vulnerability:</strong> Trivial to crack using brute-force (only 25 possible keys) or frequency analysis.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <button type="button" class="btn btn-outline btn-block btn-try-cipher" data-target-cipher="caesar" data-preset-shift="3" data-preset-text="Caesar lived in ancient Rome. Shift this by 3!">
+                <span>Try Caesar Cipher</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 2: Custom Substitution Cipher -->
+          <article class="cipher-card" id="card-substitution">
+            <div class="card-top">
+              <div class="card-icon-box">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                  <polyline points="2 12 12 17 22 12"/>
+                </svg>
+              </div>
+              <div class="card-meta">
+                <span class="cipher-era">Classical Era • Monoalphabetic</span>
+                <h3 class="cipher-name">Substitution Cipher</h3>
+              </div>
+            </div>
+
+            <p class="cipher-summary">
+              Replaces each letter of the plaintext with a predetermined partner from a shuffled 26-letter substitution alphabet. The mapping is one-to-one and reversible.
+            </p>
+
+            <div class="cipher-algorithm-box">
+              <div class="algo-label">PERMUTATION KEYSPACE:</div>
+              <div class="algo-formula">
+                <code>Keys = 26! &approx; 4.03 &times; 10^26</code>
+              </div>
+              <div class="algo-note">Massive key space makes raw brute-force search computationally infeasible.</div>
+            </div>
+
+            <div class="cipher-example-box">
+              <div class="example-title">Working Example (QWERTY Key):</div>
+              <div class="example-table">
+                <div class="ex-row"><span class="ex-lbl">Plain:</span> <code>A  B  C  D  E</code></div>
+                <div class="ex-row"><span class="ex-lbl">Maps:</span> <code>&darr;  &darr;  &darr;  &darr;  &darr;</code></div>
+                <div class="ex-row"><span class="ex-lbl">Cipher:</span> <strong class="glow-cyan">Q  W  E  R  T</strong></div>
+              </div>
+            </div>
+
+            <div class="cipher-analysis">
+              <div class="pros-cons">
+                <div class="pro-item">
+                  <span class="pro-icon">&check;</span>
+                  <span><strong>Advantages:</strong> Over 400 septillion possible keys prevents straightforward key trial.</span>
+                </div>
+                <div class="con-item">
+                  <span class="con-icon">&cross;</span>
+                  <span><strong>Vulnerability:</strong> Preserves single-letter frequencies. In English, 'E', 'T', and 'A' stand out clearly.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <button type="button" class="btn btn-outline btn-block btn-try-cipher" data-target-cipher="substitution" data-preset-text="Substitution ciphers scramble letters but preserve frequency!">
+                <span>Try Substitution Cipher</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Card 3: Vigenère Cipher -->
+          <article class="cipher-card" id="card-vigenere">
+            <div class="card-top">
+              <div class="card-icon-box">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+              </div>
+              <div class="card-meta">
+                <span class="cipher-era">1553 • Polyalphabetic</span>
+                <h3 class="cipher-name">Vigenère Cipher</h3>
+              </div>
+            </div>
+
+            <p class="cipher-summary">
+              Dubbed <em>le chiffre indéchiffrable</em> (the indecipherable cipher) for 300 years. It uses a repeating keyword to apply different Caesar shifts to successive letters.
+            </p>
+
+            <div class="cipher-algorithm-box">
+              <div class="algo-label">POLYALPHABETIC SHIFT:</div>
+              <div class="algo-formula">
+                <code>C[i] = (P[i] + K[i mod m]) mod 26</code><br>
+                <code>P[i] = (C[i] - K[i mod m]) mod 26</code>
+              </div>
+              <div class="algo-note">Keyword advances only when processing alphabetic characters.</div>
+            </div>
+
+            <div class="cipher-example-box">
+              <div class="example-title">Working Example (Keyword = "LEMON"):</div>
+              <div class="example-table">
+                <div class="ex-row"><span class="ex-lbl">Plain:</span> <code>A  T  T  A  C  K</code></div>
+                <div class="ex-row"><span class="ex-lbl">Key:</span> <code>L  E  M  O  N  L</code></div>
+                <div class="ex-row"><span class="ex-lbl">Cipher:</span> <strong class="glow-cyan">L  X  F  O  P  V</strong></div>
+              </div>
+            </div>
+
+            <div class="cipher-analysis">
+              <div class="pros-cons">
+                <div class="pro-item">
+                  <span class="pro-icon">&check;</span>
+                  <span><strong>Advantages:</strong> Flattens letter frequencies by encoding the same plaintext letter differently.</span>
+                </div>
+                <div class="con-item">
+                  <span class="con-icon">&cross;</span>
+                  <span><strong>Vulnerability:</strong> Broken by Kasiski examination and Friedman test to find keyword length.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <button type="button" class="btn btn-outline btn-block btn-try-cipher" data-target-cipher="vigenere" data-preset-key="LEMON" data-preset-text="ATTACK AT DAWN! Do not reveal the key.">
+                <span>Try Vigenère Cipher</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Prominent Cryptographic Security Advisory Banner -->
+        <div class="security-advisory-banner" role="region" aria-label="Cryptographic Security Notice">
+          <div class="advisory-icon-wrapper">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#FB7185" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div class="advisory-body">
+            <h4 class="advisory-title">Academic & Educational Advisory: Classical vs Modern Security</h4>
+            <p class="advisory-desc">
+              Classical ciphers (Caesar, monoalphabetic substitution, Vigenère) are historical algorithms created for human pen-and-paper computation. They do <strong>not</strong> provide mathematical confidentiality against modern computers and must <strong>never</strong> be used for sensitive personal, medical, or financial data. Real-world encryption relies on audited modern standards such as <strong>AES-GCM (256-bit symmetric)</strong> and <strong>RSA-4096 / Ed25519 (asymmetric public key)</strong>.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- L. Cipher Challenge Mode -->
+    <section class="challenge-section" id="challenge">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">INTERACTIVE GAME</div>
+          <h2 class="section-title">Cryptanalyst Challenge</h2>
+          <p class="section-desc">Put your decoding skills to the test! Crack the intercepted ciphertexts, earn points, and master classical cryptanalysis.</p>
+        </div>
+
+        <div class="challenge-card">
+          
+          <!-- Challenge Header: Progress, Score & Difficulty -->
+          <div class="challenge-header">
+            <div class="challenge-meta">
+              <span class="challenge-step-badge" id="challenge-step-text">Challenge 1 of 6</span>
+              <span class="difficulty-pill easy" id="challenge-difficulty">Easy</span>
+            </div>
+
+            <div class="challenge-stats">
+              <div class="challenge-stat">
+                <span class="stat-lbl">Score:</span>
+                <span class="stat-val glow-cyan" id="challenge-score">0</span>
+              </div>
+              <div class="challenge-stat">
+                <span class="stat-lbl">Streak:</span>
+                <span class="stat-val" id="challenge-streak">0</span>
+              </div>
+              <button type="button" class="btn-ghost btn-sm" id="btn-restart-challenge" title="Restart challenges from beginning">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="1 4 1 10 7 10"/>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                </svg>
+                <span>Reset</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Challenge Prompt Body -->
+          <div class="challenge-body">
+            
+            <div class="cipher-prompt-box">
+              <div class="prompt-sub-header">
+                <span class="prompt-label">INTERCEPTED CIPHERTEXT:</span>
+                <span class="prompt-algorithm" id="challenge-algo-hint">Cipher: Caesar Shift (+3)</span>
+              </div>
+              <div class="intercepted-code glow-cyan" id="challenge-ciphertext">KHOOR ZRUOG</div>
+            </div>
+
+            <!-- Hint Box (collapsible) -->
+            <div class="challenge-hint-box" id="challenge-hint-box" style="display: none;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#22D3EE" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 16v-4"/>
+                <path d="M12 8h.01"/>
+              </svg>
+              <span id="challenge-hint-text">Shift each letter backward by 3 positions in the alphabet (e.g. D becomes A).</span>
+            </div>
+
+            <!-- User Solution Input Field -->
+            <div class="solution-input-row">
+              <label for="challenge-input" class="visually-hidden">Enter decoded plaintext</label>
+              <input type="text" id="challenge-input" class="solution-input" placeholder="Enter your decoded answer here..." autocomplete="off" spellcheck="false">
+              
+              <button type="button" class="btn btn-primary" id="btn-submit-challenge">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span>Submit Answer</span>
+              </button>
+            </div>
+
+            <!-- Challenge Feedback Area -->
+            <div class="challenge-feedback" id="challenge-feedback" role="alert" style="display: none;"></div>
+
+            <!-- Challenge Actions: Hint & Reveal -->
+            <div class="challenge-action-row">
+              <button type="button" class="btn-tool" id="btn-challenge-hint">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 18h6"/>
+                  <path d="M10 22h4"/>
+                  <path d="M15 2a6 6 0 0 0-6 6c0 2 1.5 3.5 2 5h2c.5-1.5 2-3 2-5a6 6 0 0 0-6-6z"/>
+                </svg>
+                <span>Request Hint (-2 pts)</span>
+              </button>
+
+              <button type="button" class="btn-tool" id="btn-challenge-reveal">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <span>Reveal Answer</span>
+              </button>
+
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-challenge-next" style="display: none;">
+                <span>Next Puzzle</span>
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="5" y1="12" x2="19" y2="12"/>
+                  <polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- K. Recent History Section -->
+    <section class="history-section" id="history">
+      <div class="container">
+        
+        <div class="section-header">
+          <div class="section-tag">SESSION ACTIVITY</div>
+          <div class="history-header-actions">
+            <div>
+              <h2 class="section-title">Local Activity Log</h2>
+              <p class="section-desc">Review up to 10 recent operations saved exclusively in your browser's LocalStorage.</p>
+            </div>
+
+            <!-- Privacy & Storage Controls -->
+            <div class="history-toolbar">
+              <label class="toggle-control" title="Enable or disable saving session history to LocalStorage">
+                <input type="checkbox" id="toggle-history-storage" checked>
+                <span class="toggle-track"></span>
+                <span class="toggle-text">Save History</span>
+              </label>
+
+              <button type="button" class="btn-tool btn-danger" id="btn-clear-history" title="Clear all saved history entries">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+                <span>Clear All</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- History Privacy Advisory -->
+        <div class="history-privacy-notice">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span>Privacy Guaranteed: Your messages are stored strictly in your browser's memory and are never transmitted to any external server or API.</span>
+        </div>
+
+        <!-- History Items Container -->
+        <div class="history-list" id="history-list">
+          <!-- Populated dynamically via script.js -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal: Test Suite Diagnostics -->
+  <div class="modal-backdrop" id="test-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="test-modal-title">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#22D3EE" stroke-width="2">
+            <path d="M9 11l3 3L22 4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+          </svg>
+          <h3 class="modal-title" id="test-modal-title">Cryptographic Diagnostic Test Suite</h3>
+        </div>
+        <button type="button" class="btn-close-modal" id="btn-close-tests" aria-label="Close Test Suite">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="test-suite-summary">
+          <div class="test-metric">
+            <span class="metric-num" id="tests-passed-count">0</span>
+            <span class="metric-lbl">Passed</span>
+          </div>
+          <div class="test-metric">
+            <span class="metric-num" id="tests-failed-count">0</span>
+            <span class="metric-lbl">Failed</span>
+          </div>
+          <div class="test-metric">
+            <span class="metric-num" id="tests-total-count">20</span>
+            <span class="metric-lbl">Total Tests</span>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-rerun-tests">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"/>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+            <span>Rerun Tests</span>
+          </button>
+        </div>
+
+        <div class="test-items-list" id="test-results-container">
+          <!-- Dynamic test items with pass/fail badges -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <span class="modal-footer-note">All 20 algorithm specification criteria tested in-browser without external dependencies.</span>
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-modal-done">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirmation Dialog for Clear All History -->
+  <div class="modal-backdrop" id="confirm-modal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title">
+    <div class="modal-container modal-sm">
+      <div class="modal-header">
+        <h3 class="modal-title" id="confirm-modal-title">Clear Session History?</h3>
+        <button type="button" class="btn-close-modal" id="btn-cancel-confirm">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete all saved entries from your local browser storage? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-confirm-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger btn-sm" id="btn-confirm-delete">Yes, Clear History</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <aside class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></aside>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-col brand-col">
+        <div class="footer-logo">
+          <svg class="brand-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <rect x="9" y="11" width="6" height="5" rx="1" fill="currentColor" fill-opacity="0.3"/>
+            <path d="M10 11V9a2 2 0 0 1 4 0v2"/>
+          </svg>
+          <span class="footer-title">WebWhisper</span>
+        </div>
+        <p class="footer-tagline">"Your Message. Your Code. Your Secret."</p>
+        <p class="footer-copy">College Web Programming Project &bull; Educational Classical Cryptography Studio.</p>
+      </div>
+
+      <div class="footer-col links-col">
+        <h4 class="footer-heading">Ciphers</h4>
+        <ul class="footer-links">
+          <li><a href="#encoder" class="footer-link" data-cipher-trigger="caesar">Caesar Cipher</a></li>
+          <li><a href="#encoder" class="footer-link" data-cipher-trigger="substitution">Custom Substitution</a></li>
+          <li><a href="#encoder" class="footer-link" data-cipher-trigger="vigenere">Vigenère Cipher</a></li>
+          <li><a href="#learn" class="footer-link">Mathematical Guide</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col links-col">
+        <h4 class="footer-heading">Application</h4>
+        <ul class="footer-links">
+          <li><a href="#challenge" class="footer-link">Challenge Mode</a></li>
+          <li><a href="#history" class="footer-link">Local History</a></li>
+          <li><a href="javascript:void(0)" class="footer-link" id="footer-test-link">Diagnostic Suite</a></li>
+          <li><a href="#hero" class="footer-link">Back to Top</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>
